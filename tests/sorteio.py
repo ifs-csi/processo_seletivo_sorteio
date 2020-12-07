@@ -48,3 +48,22 @@ class TestSorteio(unittest.TestCase):
         for i in range(100, 200):
             candidato = {'numero_sorteado': i}
             self.assertFalse(sorteio.numero_ja_sorteado(candidato, candidatos))
+
+    def test_atribuir_numeros_unicos_sorteados_lista(self):
+        def gerar_numero():
+            for i in range(0, 200):
+                yield i
+        generator = gerar_numero()
+        def sorteador():
+            return (next(generator) // 2)
+
+        candidatos = []
+        for i in range(0, 100):
+            candidato = {}
+            candidatos.append(candidato)
+
+        sorteio.sortear_numeros_candidatos(candidatos, sorteador)
+
+        for i in range(0, 100):
+            candidato = candidatos[i]
+            self.assertEqual(i, candidato['numero_sorteado'])

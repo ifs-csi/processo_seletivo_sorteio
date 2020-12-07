@@ -5,6 +5,9 @@ def sortear_numeros_candidatos(candidatos, sorteador):
     for candidato in candidatos:
         sortear_numero_candidato(candidato, sorteador)
 
+        while numero_ja_sorteado(candidato, candidatos):
+            sortear_numero_candidato(candidato, sorteador)
+
 def numero_ja_sorteado(candidato, candidatos):
     for outro_candidato in candidatos:
         if candidato is outro_candidato:
