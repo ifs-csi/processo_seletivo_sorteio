@@ -2,12 +2,13 @@ import unittest
 
 import sorteio
 
+def gerar_numero(numero_maximo):
+    for i in range(0, numero_maximo):
+        yield i
+
 class TestSorteio(unittest.TestCase):
     def test_atribuir_numero_sorteado(self):
-        def gerar_numero():
-            for i in range(0, 100):
-                yield i
-        generator = gerar_numero()
+        generator = gerar_numero(100)
         def sorteador():
             return next(generator)
 
@@ -17,10 +18,7 @@ class TestSorteio(unittest.TestCase):
             self.assertEqual(i, candidato['numero_sorteado'])
 
     def test_atribuir_numeros_sorteados_lista(self):
-        def gerar_numero():
-            for i in range(0, 100):
-                yield i
-        generator = gerar_numero()
+        generator = gerar_numero(100)
         def sorteador():
             return next(generator)
 
@@ -50,10 +48,7 @@ class TestSorteio(unittest.TestCase):
             self.assertFalse(sorteio.numero_ja_sorteado(candidato, candidatos))
 
     def test_atribuir_numeros_unicos_sorteados_lista(self):
-        def gerar_numero():
-            for i in range(0, 200):
-                yield i
-        generator = gerar_numero()
+        generator = gerar_numero(200)
         def sorteador():
             return (next(generator) // 2)
 
