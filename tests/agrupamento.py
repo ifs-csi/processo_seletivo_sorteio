@@ -12,7 +12,7 @@ CANDIDATO2 = {
     'campus': 'Lagarto',
     'curso': 'Edificações',
     'cota': 'cota a',
-    'numero_sorteado': 101
+    'numero_sorteado': 3
 }
 CANDIDATO3 = {
     'campus': 'Aracaju',
@@ -36,7 +36,7 @@ CANDIDATO6 = {
     'campus': 'Lagarto',
     'curso': 'Edificações',
     'cota': 'cota a',
-    'numero_sorteado': 3
+    'numero_sorteado': 101
 }
 
 CANDIDATOS = [
@@ -52,12 +52,12 @@ class TestAgrupamento(unittest.TestCase):
     def test_ordenar(self):
         candidatos_ordenados = agrupamento.ordenar_numero_sorteado(CANDIDATOS)
 
-        self.assertEqual(candidatos_ordenados[0], CANDIDATO2)
+        self.assertEqual(candidatos_ordenados[0], CANDIDATO6)
         self.assertEqual(candidatos_ordenados[1], CANDIDATO3)
         self.assertEqual(candidatos_ordenados[2], CANDIDATO1)
         self.assertEqual(candidatos_ordenados[3], CANDIDATO4)
         self.assertEqual(candidatos_ordenados[4], CANDIDATO5)
-        self.assertEqual(candidatos_ordenados[5], CANDIDATO6)
+        self.assertEqual(candidatos_ordenados[5], CANDIDATO2)
 
     def test_agrupar(self):
         candidatos_agrupados = agrupamento.agrupar_candidatos(CANDIDATOS)
@@ -73,4 +73,20 @@ class TestAgrupamento(unittest.TestCase):
         self.assertEqual(
             [CANDIDATO3, CANDIDATO5],
             candidatos_agrupados['Aracaju']['Química']['cota b']
+        )
+
+    def test_gerar_resultado(self):
+        resultado = agrupamento.gerar_resultado(CANDIDATOS)
+
+        self.assertEqual(
+            [CANDIDATO1, CANDIDATO4],
+            resultado['Aracaju']['Edificações']['cota a']
+        )
+        self.assertEqual(
+            [CANDIDATO6, CANDIDATO2],
+            resultado['Lagarto']['Edificações']['cota a']
+        )
+        self.assertEqual(
+            [CANDIDATO3, CANDIDATO5],
+            resultado['Aracaju']['Química']['cota b']
         )

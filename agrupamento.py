@@ -1,3 +1,9 @@
+def gerar_resultado(candidatos):
+    candidatos_ordenados = agrupamento.ordenar_numero_sorteado(candidatos)
+    candidatos_agrupados = agrupamento.agrupar_candidatos(candidatos_ordenados)
+
+    return candidatos_agrupados
+
 def ordenar_numero_sorteado(candidatos):
     def key_function(candidato):
         return candidato['numero_sorteado']
