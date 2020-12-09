@@ -1,6 +1,72 @@
 import unittest
+import random
 
 import agrupamento
+
+CAMPI = [
+    'Aracaju',
+    'São Cristóvão',
+    'Lagarto',
+    'Itabaiana',
+    'Estância',
+    'Glória',
+    'Tobias Barreto',
+    'Propriá',
+    'Socorro',
+]
+
+CURSOS = [
+    'Edificações',
+    'Química',
+    'Informática',
+    'Eletromecânica',
+    'Laticínios',
+    'Agronomia'
+]
+
+COTAS = ['Cota A', 'Cota B', 'Cota C']
+
+def gerar_lista_candidatos():
+    candidatos = []
+
+    for i in range(0, 100):
+        candidato = gerar_candidato_aleatorio()
+        candidatos.append(candidato)
+
+    return candidatos
+
+def gerar_candidato_aleatorio():
+    campus = get_campus_aleatorio()
+    curso = get_curso_aleatorio()
+    cota = get_cota_aleatoria()
+    numero_sorteado = get_numero_sorteado_aleatorio()
+
+    candidato = {
+        'campus': campus,
+        'curso': curso,
+        'cota': cota,
+        'numero_sorteado': numero_sorteado
+    }
+
+    return candidato
+
+def get_campus_aleatorio():
+    codigo_campus = random.randint(0, 8)
+
+    return CAMPI[codigo_campus]
+
+def get_curso_aleatorio():
+    codigo_curso = random.randint(0, 5)
+
+    return CURSOS[codigo_curso]
+
+def get_cota_aleatoria():
+    codigo_cota = random.randint(0, 2)
+
+    return COTAS[codigo_cota]
+
+def get_numero_sorteado_aleatorio():
+    return random.randint(1, 2**32)
 
 CANDIDATO1 = {
     'campus': 'Aracaju',
@@ -50,14 +116,18 @@ CANDIDATOS = [
 
 class TestAgrupamento(unittest.TestCase):
     def test_ordenar(self):
-        candidatos_ordenados = agrupamento.ordenar_numero_sorteado(CANDIDATOS)
+        candidatos = gerar_lista_candidatos()
+        candidatos_ordenados = agrupamento.ordenar_numero_sorteado(candidatos)
 
-        self.assertEqual(candidatos_ordenados[0], CANDIDATO6)
-        self.assertEqual(candidatos_ordenados[1], CANDIDATO3)
-        self.assertEqual(candidatos_ordenados[2], CANDIDATO1)
-        self.assertEqual(candidatos_ordenados[3], CANDIDATO4)
-        self.assertEqual(candidatos_ordenados[4], CANDIDATO5)
-        self.assertEqual(candidatos_ordenados[5], CANDIDATO2)
+        ultimo_candidato = None
+        for candidato in candidatos_ordenados:
+            if ultimo_candidato is not None:
+                self.assertLessEqual(
+                    candidato['numero_sorteado'],
+                    ultimo_candidato['numero_sorteado']
+                )
+
+            ultimo_candidato = candidato
 
     def test_agrupar(self):
         candidatos_agrupados = agrupamento.agrupar_candidatos(CANDIDATOS)
