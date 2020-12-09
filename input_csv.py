@@ -8,3 +8,19 @@ def carregar_lista(caminho_arquivo):
         lista = list(leitor)
 
     return lista
+
+def formatar_lista(lista):
+    lista_formatada = []
+
+    for linha in lista:
+        linha_formatada = {
+            'campus': linha['campus'],
+            'curso': linha['curso'],
+            'cota': linha['cota'],
+            'numero_inscricao': int(linha['numero_inscricao']),
+            'nome': linha['nome'],
+            'numero_sorteado': int(linha['numero_sorteado']),
+        }
+        lista_formatada.append(linha_formatada)
+
+    return lista_formatada
