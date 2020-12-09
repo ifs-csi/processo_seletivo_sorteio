@@ -130,20 +130,22 @@ class TestAgrupamento(unittest.TestCase):
             ultimo_candidato = candidato
 
     def test_agrupar(self):
-        candidatos_agrupados = agrupamento.agrupar_candidatos(CANDIDATOS)
+        candidatos = gerar_lista_candidatos()
+        candidatos_agrupados = agrupamento.agrupar_candidatos(candidatos)
 
-        self.assertEqual(
-            [CANDIDATO1, CANDIDATO4],
-            candidatos_agrupados['Aracaju']['Edificações']['cota a']
-        )
-        self.assertEqual(
-            [CANDIDATO2, CANDIDATO6],
-            candidatos_agrupados['Lagarto']['Edificações']['cota a']
-        )
-        self.assertEqual(
-            [CANDIDATO3, CANDIDATO5],
-            candidatos_agrupados['Aracaju']['Química']['cota b']
-        )
+        for campus, candidatos_campus in candidatos_agrupados.items():
+            for curso, candidatos_curso in candidatos_campus.items():
+                for cota, candidatos_cota in candidatos_curso.items():
+                    candidatos_selecionados = []
+
+                    for candidato in candidatos:
+                        if (
+                            (candidato['campus'] == campus)
+                            and (candidato['curso'] == curso)
+                            and (candidato['cota'] == cota)
+                        ):
+                            candidatos_selecionados.append(candidato)
+                    self.assertEqual(candidatos_cota, candidatos_selecionados)
 
     def test_gerar_resultado(self):
         resultado = agrupamento.gerar_resultado(CANDIDATOS)
