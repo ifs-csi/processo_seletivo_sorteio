@@ -1,2 +1,8 @@
-campus;curso;cota;numero_inscricao;nome;numero_sorteado
-CAMPUS ARACAJU;Curso Técnico de Nível Médio em Alimentos;Grupo A - Ampla Concorrência;25086;FULANO DE TAL;419326372
+campus;curso;cota;numero_inscricao;nome
+CAMPUS ARACAJU;Curso Técnico de Nível Médio em Alimentos;Grupo A - Ampla Concorrência;25086;FULANO DE TAL
+CAMPUS ARACAJU;Curso Técnico de Nível Médio em Química;Grupo B - Outros;25097;CICRANO DE TAL
+CAMPUS LAGARTO;Curso Técnico de Nível Médio em Alimentos;Grupo C - PPI;9506;BELTRANO DE TAL
+CAMPUS ARACAJU;Curso Técnico de Nível Médio em Química;Grupo A - Ampla Concorrência;35086;LOREM IPSUM
+CAMPUS ESTANCIA;Curso Técnico de Nível Médio em Alimentos;Grupo A - Ampla Concorrência;24086;DOLOR SIT AMET
+CAMPUS ARACAJU;Curso Técnico de Nível Médio em Química;Grupo B - Outros;25186;CONSECTETUR ADIPISCING ELIT
+CAMPUS SOCORRO;Curso Técnico de Nível Médio em Alimentos;Grupo A - Ampla Concorrência;25085;SED DO EIUSMOD

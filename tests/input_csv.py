@@ -14,7 +14,6 @@ class TestInputCSV(unittest.TestCase):
         self.assertEqual(lista[0]['cota'], 'Grupo A - Ampla Concorrência')
         self.assertEqual(lista[0]['numero_inscricao'], '25086')
         self.assertEqual(lista[0]['nome'], 'FULANO DE TAL')
-        self.assertEqual(lista[0]['numero_sorteado'], '419326372')
 
     def test_formatar_lista(self):
         lista = []
@@ -24,7 +23,6 @@ class TestInputCSV(unittest.TestCase):
             'cota': 'Grupo A - Ampla Concorrência',
             'numero_inscricao': '25086',
             'nome': 'FULANO DE TAL',
-            'numero_sorteado': '419326372',
         }
         lista.append(linha)
 
@@ -41,7 +39,6 @@ class TestInputCSV(unittest.TestCase):
         )
         self.assertEqual(lista_formatada[0]['numero_inscricao'], 25086)
         self.assertEqual(lista_formatada[0]['nome'], 'FULANO DE TAL')
-        self.assertEqual(lista_formatada[0]['numero_sorteado'], 419326372)
 
     def test_carregar_lista_formatada(self):
         lista = input_csv.carregar_lista_formatada('test_files/lista.csv')
@@ -54,4 +51,3 @@ class TestInputCSV(unittest.TestCase):
         self.assertEqual(lista[0]['cota'], 'Grupo A - Ampla Concorrência')
         self.assertEqual(lista[0]['numero_inscricao'], 25086)
         self.assertEqual(lista[0]['nome'], 'FULANO DE TAL')
-        self.assertEqual(lista[0]['numero_sorteado'], 419326372)

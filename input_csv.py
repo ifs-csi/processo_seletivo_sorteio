@@ -25,7 +25,6 @@ def formatar_lista(lista):
             'cota': linha['cota'],
             'numero_inscricao': int(linha['numero_inscricao']),
             'nome': linha['nome'],
-            'numero_sorteado': int(linha['numero_sorteado']),
         }
         lista_formatada.append(linha_formatada)
 
