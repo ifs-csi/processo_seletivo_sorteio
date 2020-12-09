@@ -68,52 +68,6 @@ def get_cota_aleatoria():
 def get_numero_sorteado_aleatorio():
     return random.randint(1, 2**32)
 
-CANDIDATO1 = {
-    'campus': 'Aracaju',
-    'curso': 'Edificações',
-    'cota': 'cota a',
-    'numero_sorteado': 30
-}
-CANDIDATO2 = {
-    'campus': 'Lagarto',
-    'curso': 'Edificações',
-    'cota': 'cota a',
-    'numero_sorteado': 3
-}
-CANDIDATO3 = {
-    'campus': 'Aracaju',
-    'curso': 'Química',
-    'cota': 'cota b',
-    'numero_sorteado': 47
-}
-CANDIDATO4 = {
-    'campus': 'Aracaju',
-    'curso': 'Edificações',
-    'cota': 'cota a',
-    'numero_sorteado': 22
-}
-CANDIDATO5 = {
-    'campus': 'Aracaju',
-    'curso': 'Química',
-    'cota': 'cota b',
-    'numero_sorteado': 19
-}
-CANDIDATO6 = {
-    'campus': 'Lagarto',
-    'curso': 'Edificações',
-    'cota': 'cota a',
-    'numero_sorteado': 101
-}
-
-CANDIDATOS = [
-    CANDIDATO1,
-    CANDIDATO2,
-    CANDIDATO3,
-    CANDIDATO4,
-    CANDIDATO5,
-    CANDIDATO6
-]
-
 class TestAgrupamento(unittest.TestCase):
     def test_ordenar(self):
         candidatos = gerar_lista_candidatos()
@@ -148,17 +102,18 @@ class TestAgrupamento(unittest.TestCase):
                     self.assertEqual(candidatos_cota, candidatos_selecionados)
 
     def test_gerar_resultado(self):
-        resultado = agrupamento.gerar_resultado(CANDIDATOS)
+        candidatos = gerar_lista_candidatos()
+        resultado = agrupamento.gerar_resultado(candidatos)
 
-        self.assertEqual(
-            [CANDIDATO1, CANDIDATO4],
-            resultado['Aracaju']['Edificações']['cota a']
-        )
-        self.assertEqual(
-            [CANDIDATO6, CANDIDATO2],
-            resultado['Lagarto']['Edificações']['cota a']
-        )
-        self.assertEqual(
-            [CANDIDATO3, CANDIDATO5],
-            resultado['Aracaju']['Química']['cota b']
-        )
+        for campus, candidatos_campus in resultado.items():
+            for curso, candidatos_curso in candidatos_campus.items():
+                for cota, candidatos_cota in candidatos_curso.items():
+                    ultimo_candidato = None
+                    for candidato in candidatos_cota:
+                        if ultimo_candidato is not None:
+                            self.assertLessEqual(
+                                candidato['numero_sorteado'],
+                                ultimo_candidato['numero_sorteado']
+                            )
+
+                        ultimo_candidato = candidato
