@@ -1,5 +1,11 @@
 import csv
 
+def carregar_lista_formatada(caminho_arquivo):
+    lista = carregar_lista(caminho_arquivo)
+    lista_formatada = formatar_lista(lista)
+
+    return lista_formatada
+
 def carregar_lista(caminho_arquivo):
     lista = None
 
