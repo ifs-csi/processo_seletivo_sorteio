@@ -1,6 +1,6 @@
 def gerar_resultado(candidatos):
-    candidatos_ordenados = agrupamento.ordenar_numero_sorteado(candidatos)
-    candidatos_agrupados = agrupamento.agrupar_candidatos(candidatos_ordenados)
+    candidatos_ordenados = ordenar_numero_sorteado(candidatos)
+    candidatos_agrupados = agrupar_candidatos(candidatos_ordenados)
 
     return candidatos_agrupados
 
