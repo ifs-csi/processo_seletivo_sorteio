@@ -39,13 +39,15 @@ def gerar_candidato_aleatorio():
     campus = get_campus_aleatorio()
     curso = get_curso_aleatorio()
     cota = get_cota_aleatoria()
-    numero_sorteado = get_numero_sorteado_aleatorio()
+    numero_inscricao = get_numero_aleatorio()
+    numero_sorteado = get_numero_aleatorio()
 
     candidato = {
         'campus': campus,
         'curso': curso,
         'cota': cota,
-        'numero_sorteado': numero_sorteado
+        'numero_inscricao': numero_inscricao,
+        'numero_sorteado': numero_sorteado,
     }
 
     return candidato
@@ -65,11 +67,25 @@ def get_cota_aleatoria():
 
     return COTAS[codigo_cota]
 
-def get_numero_sorteado_aleatorio():
+def get_numero_aleatorio():
     return random.randint(1, 2**32)
 
 class TestAgrupamento(unittest.TestCase):
-    def test_ordenar(self):
+    def test_ordenar_por_numero_inscricao(self):
+        candidatos = gerar_lista_candidatos()
+        candidatos_ordenados = agrupamento.ordenar_numero_inscricao(candidatos)
+
+        ultimo_candidato = None
+        for candidato in candidatos_ordenados:
+            if ultimo_candidato is not None:
+                self.assertLessEqual(
+                    candidato['numero_inscricao'],
+                    ultimo_candidato['numero_inscricao']
+                )
+
+            ultimo_candidato = candidato
+
+    def test_ordenar_por_numero_sorteado(self):
         candidatos = gerar_lista_candidatos()
         candidatos_ordenados = agrupamento.ordenar_numero_sorteado(candidatos)
 

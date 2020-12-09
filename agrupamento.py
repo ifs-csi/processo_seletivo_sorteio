@@ -4,10 +4,23 @@ def gerar_resultado(candidatos):
 
     return candidatos_agrupados
 
+def ordenar_numero_inscricao(candidatos):
+    def key_function(candidato):
+        return candidato['numero_inscricao']
+
+    candidatos_ordenados = _ordernar(candidatos, key_function)
+
+    return candidatos_ordenados
+
 def ordenar_numero_sorteado(candidatos):
     def key_function(candidato):
         return candidato['numero_sorteado']
 
+    candidatos_ordenados = _ordernar(candidatos, key_function)
+
+    return candidatos_ordenados
+
+def _ordernar(candidatos, key_function):
     candidatos_ordenados = candidatos.copy()
     candidatos_ordenados.sort(reverse=True, key=key_function)
 
