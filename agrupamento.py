@@ -1,6 +1,7 @@
 def gerar_resultado(candidatos):
     candidatos_ordenados = ordenar_numero_sorteado(candidatos)
     candidatos_agrupados = agrupar_candidatos(candidatos_ordenados)
+    definir_colocacao(candidatos_agrupados)
 
     return candidatos_agrupados
 
@@ -53,3 +54,12 @@ def _criar_chaves_inexistentes(dicionario, candidato):
     cota = candidato['cota']
     if not (cota in curso):
         curso[cota] = []
+
+def definir_colocacao(candidatos_agrupados):
+    for _, cursos in candidatos_agrupados.items():
+        for _, cotas in cursos.items():
+            for _, candidatos in cotas.items():
+                posicao = 0
+                for candidato in candidatos:
+                    posicao += 1
+                    candidato['posicao'] = posicao

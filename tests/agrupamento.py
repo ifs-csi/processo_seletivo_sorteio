@@ -129,7 +129,32 @@ class TestAgrupamento(unittest.TestCase):
                         if ultimo_candidato is not None:
                             self.assertLessEqual(
                                 candidato['numero_sorteado'],
-                                ultimo_candidato['numero_sorteado']
+                                ultimo_candidato['numero_sorteado'],
+                            )
+                            self.assertLessEqual(
+                                ultimo_candidato['posicao'],
+                                candidato['posicao'],
+                            )
+
+                        ultimo_candidato = candidato
+
+    def test_definir_colocacao(self):
+        candidatos = gerar_lista_candidatos()
+        candidatos_ordenados = agrupamento.ordenar_numero_sorteado(candidatos)
+        candidatos_agrupados = agrupamento.agrupar_candidatos(
+            candidatos_ordenados
+        )
+        agrupamento.definir_colocacao(candidatos_agrupados)
+
+        for campus, candidatos_campus in candidatos_agrupados.items():
+            for curso, candidatos_curso in candidatos_campus.items():
+                for cota, candidatos_cota in candidatos_curso.items():
+                    ultimo_candidato = None
+                    for candidato in candidatos_cota:
+                        if ultimo_candidato is not None:
+                            self.assertLessEqual(
+                                ultimo_candidato['posicao'],
+                                candidato['posicao'],
                             )
 
                         ultimo_candidato = candidato
