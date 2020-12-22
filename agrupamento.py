@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 def gerar_resultado(candidatos):
     candidatos_ordenados = ordenar_numero_sorteado(candidatos)
     candidatos_agrupados = agrupar_candidatos(candidatos_ordenados)
@@ -28,17 +30,17 @@ def _ordernar(candidatos, key_function):
     return candidatos_ordenados
 
 def agrupar_candidatos(candidatos):
-    dicionario = {}
+    candidatos_agrupados = {}
 
     for candidato in candidatos:
-        _criar_chaves_inexistentes(dicionario, candidato)
+        _criar_chaves_inexistentes(candidatos_agrupados, candidato)
         campus = candidato['campus']
         curso = candidato['curso']
         cota = candidato['cota']
 
-        dicionario[campus][curso][cota].append(candidato)
+        candidatos_agrupados[campus][curso][cota].append(candidato)
 
-    return dicionario
+    return _ordenar_grupos_candidatos(candidatos_agrupados)
 
 def _criar_chaves_inexistentes(dicionario, candidato):
     chave_campus = candidato['campus']
@@ -54,6 +56,29 @@ def _criar_chaves_inexistentes(dicionario, candidato):
     cota = candidato['cota']
     if not (cota in curso):
         curso[cota] = []
+
+def _ordenar_grupos_candidatos(candidatos_agrupados):
+    candidatos_agrupados_ordenados = OrderedDict()
+
+    for campus, candidatos_cursos in sorted(
+        candidatos_agrupados.items(),
+        key=lambda x: x[0]
+    ):
+        candidatos_campus_ordenados = OrderedDict()
+        candidatos_agrupados_ordenados[campus] = candidatos_campus_ordenados
+        for curso, candidatos_cotas in sorted(
+            candidatos_cursos.items(),
+            key=lambda x: x[0]
+        ):
+            candidatos_cursos_ordenados = OrderedDict()
+            candidatos_campus_ordenados[curso] = candidatos_cursos_ordenados
+            for cota, candidatos in sorted(
+                candidatos_cotas.items(),
+                key=lambda x: x[0]
+            ):
+                candidatos_cursos_ordenados[cota] = candidatos
+
+    return candidatos_agrupados_ordenados
 
 def definir_colocacao(candidatos_agrupados):
     for _, cursos in candidatos_agrupados.items():

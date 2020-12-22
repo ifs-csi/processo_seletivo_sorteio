@@ -120,11 +120,26 @@ class TestAgrupamento(unittest.TestCase):
     def test_gerar_resultado(self):
         candidatos = gerar_lista_candidatos()
         resultado = agrupamento.gerar_resultado(candidatos)
+        ultimo_campus = None
 
         for campus, candidatos_campus in resultado.items():
+            ultimo_curso = None
+
+            if ultimo_campus is not None:
+                self.assertLessEqual(ultimo_campus, campus)
+
             for curso, candidatos_curso in candidatos_campus.items():
+                ultima_cota = None
+
+                if ultimo_curso is not None:
+                    self.assertLessEqual(ultimo_curso, curso)
+
                 for cota, candidatos_cota in candidatos_curso.items():
                     ultimo_candidato = None
+
+                    if ultima_cota is not None:
+                        self.assertLessEqual(ultima_cota, cota)
+
                     for candidato in candidatos_cota:
                         if ultimo_candidato is not None:
                             self.assertLessEqual(
@@ -137,6 +152,12 @@ class TestAgrupamento(unittest.TestCase):
                             )
 
                         ultimo_candidato = candidato
+
+                    ultima_cota = cota
+
+                ultimo_curso = curso
+
+            ultimo_campus = campus
 
     def test_definir_colocacao(self):
         candidatos = gerar_lista_candidatos()
