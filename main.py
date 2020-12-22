@@ -10,17 +10,17 @@ import sorteio
 import output_csv
 
 def main():
-    preparar()
+    seed = get_seed()
+    sorteador = sorteador_adapter.Sorteador(seed)
 
     candidatos = get_candidatos()
-    sortear(candidatos)
+    sortear(sorteador, candidatos)
     resultado = gerar_resultado(candidatos)
 
     escrever_arquivo(resultado)
 
-def preparar():
-    seed = int(sys.argv[1])
-    sorteador_adapter.definir_seed(seed)
+def get_seed():
+    return int(sys.argv[1])
 
 def get_candidatos():
     arquivo = sys.argv[2]
@@ -30,8 +30,8 @@ def get_candidatos():
 
     return candidatos_ordenados
 
-def sortear(candidatos):
-    sorteio.sortear_numeros_candidatos(candidatos, sorteador_adapter.sorteador)
+def sortear(sorteador, candidatos):
+    sorteio.sortear_numeros_candidatos(candidatos, sorteador)
 
 def gerar_resultado(candidatos):
     return agrupamento.gerar_resultado(candidatos)

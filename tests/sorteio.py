@@ -2,25 +2,32 @@ import unittest
 
 import sorteio
 
-def gerar_numero(numero_maximo):
-    for i in range(0, numero_maximo):
-        yield i
+class SorteadorMock:
+    def __init__(self):
+        self.index = 0
+
+    def sortear(self):
+        self.index += 1
+        return self.index - 1
+
+class SorteadorNumerosRepetidosMock:
+    def __init__(self):
+        self.index = 0
+
+    def sortear(self):
+        self.index += 1
+        return self.index // 2
 
 class TestSorteio(unittest.TestCase):
     def test_atribuir_numero_sorteado(self):
-        generator = gerar_numero(100)
-        def sorteador():
-            return next(generator)
-
+        sorteador = SorteadorMock()
         for i in range(0, 100):
             candidato = {}
             sorteio.sortear_numero_candidato(candidato, sorteador)
             self.assertEqual(i, candidato['numero_sorteado'])
 
     def test_atribuir_numeros_sorteados_lista(self):
-        generator = gerar_numero(100)
-        def sorteador():
-            return next(generator)
+        sorteador = SorteadorMock()
 
         candidatos = []
         for i in range(0, 100):
@@ -48,9 +55,7 @@ class TestSorteio(unittest.TestCase):
             self.assertFalse(sorteio.numero_ja_sorteado(candidato, candidatos))
 
     def test_atribuir_numeros_unicos_sorteados_lista(self):
-        generator = gerar_numero(200)
-        def sorteador():
-            return (next(generator) // 2)
+        sorteador = SorteadorNumerosRepetidosMock()
 
         candidatos = []
         for i in range(0, 100):

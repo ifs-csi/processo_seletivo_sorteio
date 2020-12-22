@@ -6,7 +6,7 @@ def sortear_numeros_candidatos(candidatos, sorteador):
             sortear_numero_candidato(candidato, sorteador)
 
 def sortear_numero_candidato(candidato, sorteador):
-    candidato['numero_sorteado'] = sorteador()
+    candidato['numero_sorteado'] = sorteador.sortear()
 
 def numero_ja_sorteado(candidato, candidatos):
     for outro_candidato in candidatos:
