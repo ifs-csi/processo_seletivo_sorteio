@@ -8,6 +8,7 @@ import input_csv
 import agrupamento
 import sorteio
 import output_csv
+import output_html
 
 def main():
     seed = get_seed()
@@ -37,8 +38,19 @@ def gerar_resultado(candidatos):
     return agrupamento.gerar_resultado(candidatos)
 
 def escrever_arquivo(resultado):
-    arquivo_resultado = sys.argv[3]
-    output_csv.escrever_arquivo_resultado(arquivo_resultado, resultado)
+    tipo_arquivo = sys.argv[3].lower()
+    arquivo_resultado = sys.argv[4]
+
+    if tipo_arquivo == 'csv':
+        output_csv.escrever_arquivo_resultado(arquivo_resultado, resultado)
+    elif tipo_arquivo == 'html':
+        output_html.escrever_arquivo_resultado(arquivo_resultado, resultado)
+    else:
+        raise ValueError(
+            'Não é possível gerar um arquivo do tipo "{}".'.format(
+                tipo_arquivo
+            )
+        )
 
 if __name__ == '__main__':
     main()
