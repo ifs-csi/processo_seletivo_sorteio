@@ -6,8 +6,9 @@ Software utilizado para o sorteio do processo seletivo do IFS.
 
 Para realizar a instalação dos pré-requisitos para executar o script, realize os seguintes passos:
 
-1. [Instale, crie and ative um ambiente virtual](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/);
-2. [Instale as dependências](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/#using-requirements-files).
+1. [Instale o Python 3](https://www.python.org/downloads/);
+2. [Instale, crie and ative um ambiente virtual](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/);
+3. [Instale as dependências](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/#using-requirements-files).
 
 ## Executar
 
