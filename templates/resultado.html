@@ -10,32 +10,35 @@
     <h1>Resultado</h1>
     {% for campus, cursos in resultado.items() %}
       <h2>{{ campus }}</h2>
-      {% for curso, cotas in cursos.items() %}
+      {% for curso, regimes in cursos.items() %}
         <h3>{{ curso }}</h3>
-        {% for cota, candidatos in cotas.items() %}
-          <table border="1" style="width: 100%">
-            <thead>
-              <tr>
-                <th colspan="4">{{ cota }}</th>
-              </tr>
-              <tr>
-                <th style="width: 13%">Posição</th>
-                <th style="width: 13%">Número Inscrição</th>
-                <th style="width: 60%">Nome</th>
-                <th style="width: 14%">Número sorteado</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for candidato in candidatos %}
+        {% for regime, cotas in regimes.items() %}
+          <h4>{{ regime }}</h4>
+          {% for cota, candidatos in cotas.items() %}
+            <table border="1" style="width: 100%">
+              <thead>
                 <tr>
-                  <td>{{ candidato.posicao }}</td>
-                  <td>{{ candidato.numero_inscricao }}</td>
-                  <td>{{ candidato.nome }}</td>
-                  <td>{{ candidato.numero_sorteado }}</td>
+                  <th colspan="4">{{ cota }}</th>
                 </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+                <tr>
+                  <th style="width: 13%">Posição</th>
+                  <th style="width: 13%">Número Inscrição</th>
+                  <th style="width: 60%">Nome</th>
+                  <th style="width: 14%">Número sorteado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for candidato in candidatos %}
+                  <tr>
+                    <td>{{ candidato.posicao }}</td>
+                    <td>{{ candidato.numero_inscricao }}</td>
+                    <td>{{ candidato.nome }}</td>
+                    <td>{{ candidato.numero_sorteado }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% endfor %}
         {% endfor %}
       {% endfor %}
     {% endfor %}

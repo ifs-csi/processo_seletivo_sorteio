@@ -1,8 +1,8 @@
-campus,curso,cota,posicao,numero_inscricao,nome,numero_sorteado
-CAMPUS ARACAJU,Curso Técnico de Nível Médio em Alimentos,Grupo A - Ampla Concorrência,1,25086,FULANO DE TAL,3751169278
-CAMPUS ARACAJU,Curso Técnico de Nível Médio em Química,Grupo B - Outros,1,25097,CICRANO DE TAL,3178489223
-CAMPUS ARACAJU,Curso Técnico de Nível Médio em Química,Grupo B - Outros,2,25186,CONSECTETUR ADIPISCING ELIT,1916507804
-CAMPUS ARACAJU,Curso Técnico de Nível Médio em Química,Grupo A - Ampla Concorrência,1,35086,LOREM IPSUM,662124364
-CAMPUS LAGARTO,Curso Técnico de Nível Médio em Alimentos,Grupo C - PPI,1,9506,BELTRANO DE TAL,2292393220
-CAMPUS SOCORRO,Curso Técnico de Nível Médio em Alimentos,Grupo A - Ampla Concorrência,1,25085,SED DO EIUSMOD,1130929394
-CAMPUS ESTANCIA,Curso Técnico de Nível Médio em Alimentos,Grupo A - Ampla Concorrência,1,24086,DOLOR SIT AMET,371232387
+campus,curso,regime,cota,posicao,numero_inscricao,nome,numero_sorteado
+CAMPUS ARACAJU,Curso Técnico de Nível Médio em Alimentos,Semi-Interno,Grupo A - Ampla Concorrência,1,25086,FULANO DE TAL,3751169278
+CAMPUS ARACAJU,Curso Técnico de Nível Médio em Química,Semi-Interno,Grupo B - Outros,1,25097,CICRANO DE TAL,3178489223
+CAMPUS ARACAJU,Curso Técnico de Nível Médio em Química,Semi-Interno,Grupo B - Outros,2,25186,CONSECTETUR ADIPISCING ELIT,1916507804
+CAMPUS ARACAJU,Curso Técnico de Nível Médio em Química,Interno,Grupo A - Ampla Concorrência,1,35086,LOREM IPSUM,662124364
+CAMPUS LAGARTO,Curso Técnico de Nível Médio em Alimentos,Interno,Grupo C - PPI,1,9506,BELTRANO DE TAL,2292393220
+CAMPUS SOCORRO,Curso Técnico de Nível Médio em Alimentos,Semi-Interno,Grupo A - Ampla Concorrência,1,25085,SED DO EIUSMOD,1130929394
+CAMPUS ESTANCIA,Curso Técnico de Nível Médio em Alimentos,Semi-Interno,Grupo A - Ampla Concorrência,1,24086,DOLOR SIT AMET,371232387

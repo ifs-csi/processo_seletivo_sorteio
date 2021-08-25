@@ -1,11 +1,13 @@
 from collections import OrderedDict
 
+
 def gerar_resultado(candidatos):
     candidatos_ordenados = ordenar_numero_sorteado(candidatos)
     candidatos_agrupados = agrupar_candidatos(candidatos_ordenados)
     definir_colocacao(candidatos_agrupados)
 
     return candidatos_agrupados
+
 
 def ordenar_numero_inscricao(candidatos):
     def key_function(candidato):
@@ -15,6 +17,7 @@ def ordenar_numero_inscricao(candidatos):
 
     return candidatos_ordenados
 
+
 def ordenar_numero_sorteado(candidatos):
     def key_function(candidato):
         return candidato['numero_sorteado']
@@ -23,11 +26,13 @@ def ordenar_numero_sorteado(candidatos):
 
     return candidatos_ordenados
 
+
 def _ordernar(candidatos, key_function):
     candidatos_ordenados = candidatos.copy()
     candidatos_ordenados.sort(reverse=True, key=key_function)
 
     return candidatos_ordenados
+
 
 def agrupar_candidatos(candidatos):
     candidatos_agrupados = {}
@@ -36,55 +41,68 @@ def agrupar_candidatos(candidatos):
         _criar_chaves_inexistentes(candidatos_agrupados, candidato)
         campus = candidato['campus']
         curso = candidato['curso']
+        regime = candidato['regime']
         cota = candidato['cota']
 
-        candidatos_agrupados[campus][curso][cota].append(candidato)
+        candidatos_agrupados[campus][curso][regime][cota].append(candidato)
 
     return _ordenar_grupos_candidatos(candidatos_agrupados)
 
+
 def _criar_chaves_inexistentes(dicionario, candidato):
     chave_campus = candidato['campus']
-    if not (chave_campus in dicionario):
+    if chave_campus not in dicionario:
         dicionario[chave_campus] = {}
 
     campus = dicionario[chave_campus]
     chave_curso = candidato['curso']
-    if not (chave_curso in campus):
+    if chave_curso not in campus:
         campus[chave_curso] = {}
 
     curso = campus[chave_curso]
-    cota = candidato['cota']
-    if not (cota in curso):
-        curso[cota] = []
+    chave_regime = candidato['regime']
+    if chave_regime not in curso:
+        curso[chave_regime] = {}
+
+    regime = curso[chave_regime]
+    chave_cota = candidato['cota']
+    if chave_cota not in regime:
+        regime[chave_cota] = []
+
 
 def _ordenar_grupos_candidatos(candidatos_agrupados):
     candidatos_agrupados_ordenados = OrderedDict()
 
-    for campus, candidatos_cursos in sorted(
-        candidatos_agrupados.items(),
-        key=lambda x: x[0]
-    ):
-        candidatos_campus_ordenados = OrderedDict()
-        candidatos_agrupados_ordenados[campus] = candidatos_campus_ordenados
-        for curso, candidatos_cotas in sorted(
-            candidatos_cursos.items(),
-            key=lambda x: x[0]
-        ):
-            candidatos_cursos_ordenados = OrderedDict()
-            candidatos_campus_ordenados[curso] = candidatos_cursos_ordenados
-            for cota, candidatos in sorted(
-                candidatos_cotas.items(),
-                key=lambda x: x[0]
-            ):
-                candidatos_cursos_ordenados[cota] = candidatos
+    _ordenar_grupos(candidatos_agrupados, candidatos_agrupados_ordenados)
 
     return candidatos_agrupados_ordenados
 
+
+def _ordenar_grupos(candidatos_agrupados, candidatos_agrupados_ordenados):
+    for subgrupo, candidatos_subgrupo in sorted(
+        candidatos_agrupados.items(),
+        key=lambda x: x[0]
+    ):
+        if isinstance(candidatos_subgrupo, dict):
+            candidatos_subgrupo_ordenados = OrderedDict()
+            candidatos_agrupados_ordenados[subgrupo] = (
+                candidatos_subgrupo_ordenados
+            )
+
+            _ordenar_grupos(
+                candidatos_subgrupo,
+                candidatos_subgrupo_ordenados,
+            )
+        else:
+            candidatos_agrupados_ordenados[subgrupo] = candidatos_subgrupo
+
+
 def definir_colocacao(candidatos_agrupados):
     for _, cursos in candidatos_agrupados.items():
-        for _, cotas in cursos.items():
-            for _, candidatos in cotas.items():
-                posicao = 0
-                for candidato in candidatos:
-                    posicao += 1
-                    candidato['posicao'] = posicao
+        for _, regimes in cursos.items():
+            for _, cotas in regimes.items():
+                for _, candidatos in cotas.items():
+                    posicao = 0
+                    for candidato in candidatos:
+                        posicao += 1
+                        candidato['posicao'] = posicao

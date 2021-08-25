@@ -1,10 +1,12 @@
 import csv
 
+
 def carregar_lista_formatada(caminho_arquivo):
     lista = carregar_lista(caminho_arquivo)
     lista_formatada = formatar_lista(lista)
 
     return lista_formatada
+
 
 def carregar_lista(caminho_arquivo):
     lista = None
@@ -15,6 +17,7 @@ def carregar_lista(caminho_arquivo):
 
     return lista
 
+
 def formatar_lista(lista):
     lista_formatada = []
 
@@ -22,6 +25,7 @@ def formatar_lista(lista):
         linha_formatada = {
             'campus': linha['campus'],
             'curso': linha['curso'],
+            'regime': linha['regime'],
             'cota': linha['cota'],
             'numero_inscricao': int(linha['numero_inscricao']),
             'nome': linha['nome'],

@@ -1,5 +1,5 @@
-import unittest
 import random
+import unittest
 
 import agrupamento
 
@@ -24,7 +24,10 @@ CURSOS = [
     'Agronomia'
 ]
 
+REGIMES = ['Semi-Interno', 'Interno (Masculino)', 'Interno (Feminino)']
+
 COTAS = ['Cota A', 'Cota B', 'Cota C']
+
 
 def gerar_lista_candidatos():
     candidatos = []
@@ -35,16 +38,19 @@ def gerar_lista_candidatos():
 
     return candidatos
 
+
 def gerar_candidato_aleatorio():
-    campus = get_campus_aleatorio()
-    curso = get_curso_aleatorio()
-    cota = get_cota_aleatoria()
+    campus = random.choice(CAMPI)
+    curso = random.choice(CURSOS)
+    regime = random.choice(REGIMES)
+    cota = random.choice(COTAS)
     numero_inscricao = get_numero_aleatorio()
     numero_sorteado = get_numero_aleatorio()
 
     candidato = {
         'campus': campus,
         'curso': curso,
+        'regime': regime,
         'cota': cota,
         'numero_inscricao': numero_inscricao,
         'numero_sorteado': numero_sorteado,
@@ -52,23 +58,10 @@ def gerar_candidato_aleatorio():
 
     return candidato
 
-def get_campus_aleatorio():
-    codigo_campus = random.randint(0, 8)
-
-    return CAMPI[codigo_campus]
-
-def get_curso_aleatorio():
-    codigo_curso = random.randint(0, 5)
-
-    return CURSOS[codigo_curso]
-
-def get_cota_aleatoria():
-    codigo_cota = random.randint(0, 2)
-
-    return COTAS[codigo_cota]
 
 def get_numero_aleatorio():
     return random.randint(1, 2**32)
+
 
 class TestAgrupamento(unittest.TestCase):
     def test_ordenar_por_numero_inscricao(self):
@@ -105,17 +98,22 @@ class TestAgrupamento(unittest.TestCase):
 
         for campus, candidatos_campus in candidatos_agrupados.items():
             for curso, candidatos_curso in candidatos_campus.items():
-                for cota, candidatos_cota in candidatos_curso.items():
-                    candidatos_selecionados = []
+                for regime, candidatos_regime in candidatos_curso.items():
+                    for cota, candidatos_cota in candidatos_regime.items():
+                        candidatos_selecionados = []
 
-                    for candidato in candidatos:
-                        if (
-                            (candidato['campus'] == campus)
-                            and (candidato['curso'] == curso)
-                            and (candidato['cota'] == cota)
-                        ):
-                            candidatos_selecionados.append(candidato)
-                    self.assertEqual(candidatos_cota, candidatos_selecionados)
+                        for candidato in candidatos:
+                            if (
+                                (candidato['campus'] == campus)
+                                and (candidato['curso'] == curso)
+                                and (candidato['regime'] == regime)
+                                and (candidato['cota'] == cota)
+                            ):
+                                candidatos_selecionados.append(candidato)
+                        self.assertEqual(
+                            candidatos_cota,
+                            candidatos_selecionados
+                        )
 
     def test_gerar_resultado(self):
         candidatos = gerar_lista_candidatos()
@@ -129,31 +127,39 @@ class TestAgrupamento(unittest.TestCase):
                 self.assertLessEqual(ultimo_campus, campus)
 
             for curso, candidatos_curso in candidatos_campus.items():
-                ultima_cota = None
+                ultima_regime = None
 
                 if ultimo_curso is not None:
                     self.assertLessEqual(ultimo_curso, curso)
 
-                for cota, candidatos_cota in candidatos_curso.items():
-                    ultimo_candidato = None
+                for regime, candidatos_regime in candidatos_curso.items():
+                    ultima_cota = None
 
-                    if ultima_cota is not None:
-                        self.assertLessEqual(ultima_cota, cota)
+                    if ultima_regime is not None:
+                        self.assertLessEqual(ultimo_regime, regime)
 
-                    for candidato in candidatos_cota:
-                        if ultimo_candidato is not None:
-                            self.assertLessEqual(
-                                candidato['numero_sorteado'],
-                                ultimo_candidato['numero_sorteado'],
-                            )
-                            self.assertLessEqual(
-                                ultimo_candidato['posicao'],
-                                candidato['posicao'],
-                            )
+                    for cota, candidatos_cota in candidatos_regime.items():
+                        ultimo_candidato = None
 
-                        ultimo_candidato = candidato
+                        if ultima_cota is not None:
+                            self.assertLessEqual(ultima_cota, cota)
 
-                    ultima_cota = cota
+                        for candidato in candidatos_cota:
+                            if ultimo_candidato is not None:
+                                self.assertLessEqual(
+                                    candidato['numero_sorteado'],
+                                    ultimo_candidato['numero_sorteado'],
+                                )
+                                self.assertLessEqual(
+                                    ultimo_candidato['posicao'],
+                                    candidato['posicao'],
+                                )
+
+                            ultimo_candidato = candidato
+
+                        ultima_cota = cota
+
+                    ultimo_regime = regime
 
                 ultimo_curso = curso
 
@@ -167,15 +173,16 @@ class TestAgrupamento(unittest.TestCase):
         )
         agrupamento.definir_colocacao(candidatos_agrupados)
 
-        for campus, candidatos_campus in candidatos_agrupados.items():
-            for curso, candidatos_curso in candidatos_campus.items():
-                for cota, candidatos_cota in candidatos_curso.items():
-                    ultimo_candidato = None
-                    for candidato in candidatos_cota:
-                        if ultimo_candidato is not None:
-                            self.assertLessEqual(
-                                ultimo_candidato['posicao'],
-                                candidato['posicao'],
-                            )
+        for _, candidatos_campus in candidatos_agrupados.items():
+            for _, candidatos_curso in candidatos_campus.items():
+                for _, candidatos_regime in candidatos_curso.items():
+                    for _, candidatos_cota in candidatos_regime.items():
+                        ultimo_candidato = None
+                        for candidato in candidatos_cota:
+                            if ultimo_candidato is not None:
+                                self.assertLessEqual(
+                                    ultimo_candidato['posicao'],
+                                    candidato['posicao'],
+                                )
 
-                        ultimo_candidato = candidato
+                            ultimo_candidato = candidato

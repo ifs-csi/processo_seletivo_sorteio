@@ -2,24 +2,28 @@ import unittest
 
 import input_csv
 
+
 class TestInputCSV(unittest.TestCase):
     def test_carregar_lista_nao_formatada(self):
         lista = input_csv.carregar_lista('test_files/lista.csv')
+        candidato = lista[0]
 
-        self.assertEqual(lista[0]['campus'], 'CAMPUS ARACAJU')
+        self.assertEqual(candidato['campus'], 'CAMPUS ARACAJU')
         self.assertEqual(
-            lista[0]['curso'],
+            candidato['curso'],
             'Curso Técnico de Nível Médio em Alimentos'
         )
-        self.assertEqual(lista[0]['cota'], 'Grupo A - Ampla Concorrência')
-        self.assertEqual(lista[0]['numero_inscricao'], '25086')
-        self.assertEqual(lista[0]['nome'], 'FULANO DE TAL')
+        self.assertEqual(candidato['regime'], 'Semi-Interno')
+        self.assertEqual(candidato['cota'], 'Grupo A - Ampla Concorrência')
+        self.assertEqual(candidato['numero_inscricao'], '25086')
+        self.assertEqual(candidato['nome'], 'FULANO DE TAL')
 
     def test_formatar_lista(self):
         lista = []
         linha = {
             'campus': 'CAMPUS ARACAJU',
             'curso': 'Curso Técnico de Nível Médio em Alimentos',
+            'regime': 'Interno',
             'cota': 'Grupo A - Ampla Concorrência',
             'numero_inscricao': '25086',
             'nome': 'FULANO DE TAL',
@@ -27,27 +31,30 @@ class TestInputCSV(unittest.TestCase):
         lista.append(linha)
 
         lista_formatada = input_csv.formatar_lista(lista)
+        candidato = lista_formatada[0]
 
-        self.assertEqual(lista_formatada[0]['campus'], 'CAMPUS ARACAJU')
+        self.assertEqual(candidato['campus'], 'CAMPUS ARACAJU')
         self.assertEqual(
-            lista[0]['curso'],
+            candidato['curso'],
             'Curso Técnico de Nível Médio em Alimentos'
         )
         self.assertEqual(
-            lista_formatada[0]['cota'],
+            candidato['cota'],
             'Grupo A - Ampla Concorrência'
         )
-        self.assertEqual(lista_formatada[0]['numero_inscricao'], 25086)
-        self.assertEqual(lista_formatada[0]['nome'], 'FULANO DE TAL')
+        self.assertEqual(candidato['numero_inscricao'], 25086)
+        self.assertEqual(candidato['nome'], 'FULANO DE TAL')
 
     def test_carregar_lista_formatada(self):
         lista = input_csv.carregar_lista_formatada('test_files/lista.csv')
+        candidato = lista[0]
 
-        self.assertEqual(lista[0]['campus'], 'CAMPUS ARACAJU')
+        self.assertEqual(candidato['campus'], 'CAMPUS ARACAJU')
         self.assertEqual(
-            lista[0]['curso'],
+            candidato['curso'],
             'Curso Técnico de Nível Médio em Alimentos'
         )
-        self.assertEqual(lista[0]['cota'], 'Grupo A - Ampla Concorrência')
-        self.assertEqual(lista[0]['numero_inscricao'], 25086)
-        self.assertEqual(lista[0]['nome'], 'FULANO DE TAL')
+        self.assertEqual(candidato['regime'], 'Semi-Interno')
+        self.assertEqual(candidato['cota'], 'Grupo A - Ampla Concorrência')
+        self.assertEqual(candidato['numero_inscricao'], 25086)
+        self.assertEqual(candidato['nome'], 'FULANO DE TAL')

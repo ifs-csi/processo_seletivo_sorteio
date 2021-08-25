@@ -3,12 +3,13 @@
 
 import sys
 
-import sorteador_adapter
-import input_csv
 import agrupamento
-import sorteio
+import input_csv
 import output_csv
 import output_html
+import sorteador_adapter
+import sorteio
+
 
 def main():
     seed = get_seed()
@@ -20,8 +21,10 @@ def main():
 
     escrever_arquivo(resultado)
 
+
 def get_seed():
     return int(sys.argv[1])
+
 
 def get_candidatos():
     arquivo = sys.argv[2]
@@ -31,11 +34,14 @@ def get_candidatos():
 
     return candidatos_ordenados
 
+
 def sortear(sorteador, candidatos):
     sorteio.sortear_numeros_candidatos(candidatos, sorteador)
 
+
 def gerar_resultado(candidatos):
     return agrupamento.gerar_resultado(candidatos)
+
 
 def escrever_arquivo(resultado):
     tipo_arquivo = sys.argv[3].lower()
@@ -51,6 +57,7 @@ def escrever_arquivo(resultado):
                 tipo_arquivo
             )
         )
+
 
 if __name__ == '__main__':
     main()
