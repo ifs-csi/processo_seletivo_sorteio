@@ -1,10 +1,14 @@
 from collections import OrderedDict
 
+APROVADO = 'Aprovado'
+EXCEDENTE = 'Excedente'
 
-def gerar_resultado(candidatos):
+
+def gerar_resultado(candidatos, quantidade_vagas):
     candidatos_ordenados = ordenar_numero_sorteado(candidatos)
     candidatos_agrupados = agrupar_candidatos(candidatos_ordenados)
     definir_colocacao(candidatos_agrupados)
+    definir_situacao(candidatos_agrupados, quantidade_vagas)
 
     return candidatos_agrupados
 
@@ -106,3 +110,19 @@ def definir_colocacao(candidatos_agrupados):
                     for candidato in candidatos:
                         posicao += 1
                         candidato['posicao'] = posicao
+
+
+def definir_situacao(candidatos_agrupados, quantidade_vagas):
+    for nome_campus, cursos in candidatos_agrupados.items():
+        vagas_campus = quantidade_vagas[nome_campus]
+        for nome_curso, regimes in cursos.items():
+            vagas_curso = vagas_campus[nome_curso]
+            for descricao_regime, cotas in regimes.items():
+                vagas_regime = vagas_curso[descricao_regime]
+                for nome_cota, candidatos in cotas.items():
+                    vagas_cota = vagas_regime[nome_cota]
+                    for candidato in candidatos:
+                        if candidato['posicao'] <= vagas_cota:
+                            candidato['situacao'] = APROVADO
+                        else:
+                            candidato['situacao'] = EXCEDENTE

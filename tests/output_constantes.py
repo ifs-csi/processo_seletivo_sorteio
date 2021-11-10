@@ -12,6 +12,7 @@ CANDIDATOS = {
                         'numero_inscricao': '25086',
                         'nome': 'FULANO DE TAL',
                         'numero_sorteado': '3751169278',
+                        'situacao': 'Aprovado',
                     },
                 ],
             },
@@ -28,6 +29,7 @@ CANDIDATOS = {
                         'numero_inscricao': '25097',
                         'nome': 'CICRANO DE TAL',
                         'numero_sorteado': '3178489223',
+                        'situacao': 'Aprovado',
                     },
                     {
                         'campus': 'CAMPUS ARACAJU',
@@ -38,6 +40,7 @@ CANDIDATOS = {
                         'numero_inscricao': '25186',
                         'nome': 'CONSECTETUR ADIPISCING ELIT',
                         'numero_sorteado': '1916507804',
+                        'situacao': 'Excedente',
                     },
                 ]
             },
@@ -52,6 +55,7 @@ CANDIDATOS = {
                         'numero_inscricao': '35086',
                         'nome': 'LOREM IPSUM',
                         'numero_sorteado': '662124364',
+                        'situacao': 'Aprovado',
                     },
                 ],
             }
@@ -70,6 +74,7 @@ CANDIDATOS = {
                         'numero_inscricao': '9506',
                         'nome': 'BELTRANO DE TAL',
                         'numero_sorteado': '2292393220',
+                        'situacao': 'Aprovado',
                     },
                 ],
             }
@@ -88,6 +93,7 @@ CANDIDATOS = {
                         'numero_inscricao': '25085',
                         'nome': 'SED DO EIUSMOD',
                         'numero_sorteado': '1130929394',
+                        'situacao': 'Aprovado',
                     },
                 ],
             },
@@ -106,6 +112,7 @@ CANDIDATOS = {
                         'numero_inscricao': '24086',
                         'nome': 'DOLOR SIT AMET',
                         'numero_sorteado': '371232387',
+                        'situacao': 'Aprovado',
                     },
                 ],
             }

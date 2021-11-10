@@ -18,13 +18,14 @@
             <table border="1" style="width: 100%">
               <thead>
                 <tr>
-                  <th colspan="4">{{ cota }}</th>
+                  <th colspan="5">{{ cota }}</th>
                 </tr>
                 <tr>
-                  <th style="width: 13%">Posição</th>
-                  <th style="width: 13%">Número Inscrição</th>
+                  <th style="width: 10%">Posição</th>
+                  <th style="width: 10%">Número Inscrição</th>
                   <th style="width: 60%">Nome</th>
-                  <th style="width: 14%">Número sorteado</th>
+                  <th style="width: 10%">Número sorteado</th>
+                  <th style="width: 10%">Situação</th>
                 </tr>
               </thead>
               <tbody>
@@ -34,6 +35,7 @@
                     <td>{{ candidato.numero_inscricao }}</td>
                     <td>{{ candidato.nome }}</td>
                     <td>{{ candidato.numero_sorteado }}</td>
+                    <td>{{ candidato.situacao }}</td>
                   </tr>
                 {% endfor %}
               </tbody>

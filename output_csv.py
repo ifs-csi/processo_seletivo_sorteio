@@ -12,6 +12,7 @@ def escrever_arquivo_resultado(nome_arquivo, resultado):
             'numero_inscricao',
             'nome',
             'numero_sorteado',
+            'situacao',
         ]
         writer = csv.DictWriter(arquivo_csv, fieldnames=campos)
 

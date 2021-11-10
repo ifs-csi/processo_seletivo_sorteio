@@ -17,7 +17,8 @@ def main():
 
     candidatos = get_candidatos()
     sortear(sorteador, candidatos)
-    resultado = gerar_resultado(candidatos)
+    quantidade_vagas = get_quantidade_vagas()
+    resultado = gerar_resultado(candidatos, quantidade_vagas)
 
     escrever_arquivo(resultado)
 
@@ -26,10 +27,18 @@ def get_seed():
     return int(sys.argv[1])
 
 
-def get_candidatos():
+def get_quantidade_vagas():
     arquivo = sys.argv[2]
 
-    candidatos = input_csv.carregar_lista_formatada(arquivo)
+    quantidade_vagas = input_csv.carregar_dict_vagas_formatada(arquivo)
+
+    return quantidade_vagas
+
+
+def get_candidatos():
+    arquivo = sys.argv[3]
+
+    candidatos = input_csv.carregar_lista_candidatos_formatada(arquivo)
     candidatos_ordenados = agrupamento.ordenar_numero_inscricao(candidatos)
 
     return candidatos_ordenados
@@ -39,13 +48,13 @@ def sortear(sorteador, candidatos):
     sorteio.sortear_numeros_candidatos(candidatos, sorteador)
 
 
-def gerar_resultado(candidatos):
-    return agrupamento.gerar_resultado(candidatos)
+def gerar_resultado(candidatos, quantidade_vagas):
+    return agrupamento.gerar_resultado(candidatos, quantidade_vagas)
 
 
 def escrever_arquivo(resultado):
-    tipo_arquivo = sys.argv[3].lower()
-    arquivo_resultado = sys.argv[4]
+    tipo_arquivo = sys.argv[4].lower()
+    arquivo_resultado = sys.argv[5]
 
     if tipo_arquivo == 'csv':
         output_csv.escrever_arquivo_resultado(arquivo_resultado, resultado)

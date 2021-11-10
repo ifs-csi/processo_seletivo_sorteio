@@ -21,7 +21,7 @@ Para executar o script, realize os seguintes passos:
     ```bash
     # A semente é um valor numérico
     # Para gerar um arquivo em CSV (para poder visualizar em ferramentas de planilha como o LibreOffice ou Excel) o terceiro argumento do script deve ser "csv"
-    python main.py <semente> lista_inscritos_ordenada.csv csv resultado.csv
+    python main.py <semente> quantidade_vagas.csv lista_inscritos_ordenada.csv csv resultado.csv
     # Para gerar um arquivo em HTML (para poder visualizar em um navegador como o Firefox, Chrome, Edge, entre outros) o terceiro argumento do script deve ser "html"
-    python main.py <semente> lista_inscritos_ordenada.csv html resultado.html
+    python main.py <semente> quantidade_vagas.csv lista_inscritos_ordenada.csv html resultado.html
     ```
